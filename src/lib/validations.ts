@@ -63,7 +63,7 @@ export const DetailsSchema = z.object({
   socialMedia: z.array(MarketplaceSchema),
   contract: z.string(),
   textEn: z.string(),
-  textEs: z.string(),
+  textEs: z.string().nullable(),
   floorPriceNative: z.number(),
   floorPriceUsd: z.number(),
   floorInfo: FloorInfoSchema,

@@ -1,8 +1,11 @@
 import React from "react";
-import { z } from "zod";
 import { Project } from "@/lib/types";
 import Link from "next/link";
 import { ProjectSchema } from "@/lib/validations";
+import Image from "next/image";
+import { Star } from "lucide-react";
+
+const currency = true;
 
 export default async function CollectionsPage() {
   const response = await fetch(
@@ -27,14 +30,14 @@ export default async function CollectionsPage() {
     .filter(Boolean); // Remove null values (invalid data)
 
   return (
-    <div className="overflow-x-auto cursor-default">
-      <table className="table-auto">
+    <div className="overflow-x-auto cursor-default font-mono">
+      <table className="table-auto w-full">
         <thead>
-          <tr>
-            <th className="px-4 py-2">#</th>
-            <th className="px-4 py-2">Name</th>
-            <th className="px-4 py-2">Slug</th>
-            {/* Add more table headers as needed */}
+          <tr className="text-left">
+            <th className=" ">Rank</th>
+            <th className="px-1 "></th>
+            <th className="px-4 ">Name</th>
+            <th className="px-4 ">Floor</th>
           </tr>
         </thead>
         <tbody>
@@ -44,14 +47,41 @@ export default async function CollectionsPage() {
             .map((item: Project, index: number) => (
               <tr
                 key={item.slug}
-                className={index % 2 === 0 ? "bg-gray-100" : ""}
+                className={index % 2 === 0 ? "bg-accent" : ""}
               >
-                <td className="border px-4 py-2">{item.ranking}</td>
-                <td className="border px-4 py-2">
-                  <Link href={`/collections/${item.slug}`}>{item.name}</Link>
+                <td className="px-1  text-xs">
+                  {String(index + 1).padStart(3, "0")}
                 </td>
-                <td className="border px-4 py-2">{item.slug}</td>
-                {/* Add more table data cells as needed */}
+                <td className=" ">
+                  <Star width={12} />
+                </td>
+                <td className=" px-4  flex items-center space-x-2">
+                  <div className="w-8 h-8">
+                    <Image
+                      src={`https://nftpricefloor.com/_next/image?url=https%3A%2F%2Fs3.amazonaws.com%2Fcdn.nftpricefloor%2Fprojects%2Fv1%2F${item.slug}.png%3Fversion%3D6&w=256&q=75`}
+                      alt=""
+                      width={32}
+                      height={32}
+                      className="object-cover w-full h-full border border-black/50"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <Link href={`/collections/${item.slug}`} title={item.slug}>
+                      {item.name}
+                    </Link>
+                    <div className="text-xs ">
+                      <span className="bg-primary text-secondary px-1">
+                        {item.stats.totalSupply}
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td className=" px-4 ">
+                  {currency
+                    ? item.stats.floorInfo.currentFloorNative
+                    : item.stats.floorInfo.currentFloorUsd}
+                  {currency ? " ETH" : " USD"}
+                </td>
               </tr>
             ))}
         </tbody>
