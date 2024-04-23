@@ -2,6 +2,7 @@ import React from "react";
 import { ModeToggle } from "./mode-toggle";
 import Link from "next/link";
 import ContextOptions from "./context-options";
+import { DropdownNavigation } from "./dropdown-navigation";
 
 const routes = [
   {
@@ -30,20 +31,13 @@ const userRoutes = [
 export default function Header() {
   return (
     <div className="flex justify-between items-center border-b z-[999] relative backdrop-blur-[0.5rem] px-4 py-2 ">
-      <h1 className="font-mono">Next NFTs 👾</h1>
-      <nav className="  flex-1  ">
-        <ul className="flex justify-center items-center  font-mono text-sm space-x-2 ">
-          {routes.map((route) => (
-            <li
-              className="bg-accent hover:bg-accent/50 p-2 cursor-pointer "
-              key={route.path}
-            >
-              <Link href={route.path}>{route.label}</Link>
-            </li>
-          ))}
-        </ul>
+      <nav className=" ">
+        <DropdownNavigation />
       </nav>
-      <ContextOptions />
+      <h1 className="font-mono">Next NFTs 👾</h1>
+      <div className="">
+        <ContextOptions />
+      </div>
       <div className="">
         <ModeToggle />
       </div>

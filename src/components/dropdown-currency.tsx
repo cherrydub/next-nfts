@@ -12,23 +12,49 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useOptionsContext } from "@/contexts/options-context-provider";
+import Image from "next/image";
 
 export function DropdownCurrency() {
-  const [currency, setCurrency] = React.useState("Native");
+  //   const [currency, setCurrency] = React.useState("Native");
+  const { currency, setCurrency } = useOptionsContext();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          currency: {currency === "Native" ? "ETH" : "USD"}
+          <span className="hidden md:inline">currency:</span>
+
+          {currency === "Native" ? (
+            <span className="flex ml-1">
+              ETH{" "}
+              <Image
+                alt="logo"
+                src="/svgs/ethereum.svg"
+                width={20}
+                height={20}
+              />
+            </span>
+          ) : (
+            <span className="flex ml-1">
+              USD{" "}
+              <Image alt="logo" src="/svgs/dollar.svg" width={20} height={20} />
+            </span>
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Update Currency Type</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value={currency} onValueChange={setCurrency}>
-          <DropdownMenuRadioItem value="Native">ETH</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="Usd">USD</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="Native">
+            ETH{" "}
+            <Image alt="logo" src="/svgs/ethereum.svg" width={20} height={20} />
+          </DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="Usd">
+            USD{" "}
+            <Image alt="logo" src="/svgs/dollar.svg" width={20} height={20} />
+          </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -4,17 +4,14 @@ import { useOptionsContext } from "@/contexts/options-context-provider";
 import React from "react";
 import { Button } from "./ui/button";
 import { DropdownCurrency } from "./dropdown-currency";
-import { DropdownTimerange } from "./dropdown-timerange";
+import { DropdownTimeFrame } from "./dropdown-timeframe";
 
 export default function ContextOptions() {
   const { currency, timeFrame } = useOptionsContext();
   return (
-    <div>
-      <div>
-        <DropdownCurrency />
-        <DropdownTimerange />
-      </div>
-      <div></div>
+    <div className="space-x-2 mr-2">
+      <DropdownCurrency />
+      <DropdownTimeFrame />
     </div>
   );
 }

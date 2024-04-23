@@ -13,6 +13,8 @@ type TOptionsContextType = {
   setTimeFrame: React.Dispatch<React.SetStateAction<string>>;
   handleTimeChange: (timeFrame: string) => void;
   handleCurrencyChange: () => void;
+  navigation: string;
+  setNavigation: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const OptionsContext = createContext<TOptionsContextType | null>(null);
@@ -21,7 +23,8 @@ export default function OptionsContextProvider({
   children,
 }: OptionsContextProviderProps) {
   const [currency, setCurrency] = useState("Native");
-  const [timeFrame, setTimeFrame] = useState("7d");
+  const [timeFrame, setTimeFrame] = useState("24h");
+  const [navigation, setNavigation] = useState("collections");
 
   function handleTimeChange(timeFrame: string) {
     setTimeFrame(timeFrame);
@@ -44,6 +47,8 @@ export default function OptionsContextProvider({
         setTimeFrame,
         handleTimeChange,
         handleCurrencyChange,
+        navigation,
+        setNavigation,
       }}
     >
       {children}

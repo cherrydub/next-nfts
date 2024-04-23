@@ -6,7 +6,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { z } from "zod";
 
 const currency = "Native";
@@ -31,7 +30,7 @@ export const Columns: ColumnDef<Projects>[] = [
     cell: ({ row }) => (
       <div className="flex items-center justify-around">
         {String(row.original.ranking).padStart(3, "0")}
-        <Star className="text-sm" />
+        <Star width={12} />
         <Image
           width={40}
           height={40}
@@ -44,7 +43,17 @@ export const Columns: ColumnDef<Projects>[] = [
   },
   {
     accessorKey: "name",
-    header: "Name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => (
       <div className="flex flex-col">
         <Link
@@ -65,17 +74,27 @@ export const Columns: ColumnDef<Projects>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          {currency === "Native" ? "Floor Price ETH" : "Floor Price USD"}
+          Floor Price
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => (
-      <span>
-        {currency
-          ? row.original.stats.floorInfo?.currentFloorNative
-          : row.original.stats.floorInfo?.currentFloorUsd}
-        {currency ? " ETH" : " USD"}
+      <span className="flex justify-center">
+        {currency === "Native"
+          ? row.original.stats.floorInfo?.currentFloorNative?.toFixed(2)
+          : row.original.stats.floorInfo?.currentFloorUsd?.toLocaleString(
+              undefined,
+              {
+                maximumFractionDigits: 0,
+                minimumFractionDigits: 0,
+              }
+            )}
+        {currency === "Native" ? (
+          <Image alt="logo" src="/svgs/ethereum.svg" width={20} height={20} />
+        ) : (
+          <Image alt="logo" src="/svgs/dollar.svg" width={20} height={20} />
+        )}
       </span>
     ),
   },
@@ -87,18 +106,23 @@ export const Columns: ColumnDef<Projects>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          {`${timeRange} % change`} ETH
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          {`${timeRange} % change`} <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => (
-      <span>
-        {/* {currency
-          ? row.original.stats.floorInfo?.currentFloorNative
-          : row.original.stats.floorInfo?.currentFloorUsd}
-        {currency ? " ETH" : " USD"} */}
-        {row.original.stats.floorTemporalityNative?.diff7d}
+      <span
+        className={`${
+          row.original.stats.floorTemporalityNative?.diff7d < 0
+            ? "text-red-500"
+            : row.original.stats.floorTemporalityNative?.diff7d > 0
+            ? "text-green-500"
+            : ""
+        } flex justify-center`}
+      >
+        {row.original.stats.floorTemporalityNative?.diff7d.toFixed(2) === "0.00"
+          ? "-"
+          : row.original.stats.floorTemporalityNative?.diff7d.toFixed(2)}
       </span>
     ),
   },

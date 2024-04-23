@@ -6,15 +6,19 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import { DataTable } from "./data-table";
 import { Columns } from "./columns";
+import { nftArray } from "../../../public/data";
+import { useOptionsContext } from "@/contexts/options-context-provider";
 
 export default async function CollectionsPage() {
-  const response = await fetch(
-    `https://nftpricefloor.quickapi.io/api/projects?qapikey=${process.env.NFT_API_KEY}`
-  );
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-  const rawData = await response.json();
+  // const response = await fetch(
+  //   `https://nftpricefloor.quickapi.io/api/projects?qapikey=${process.env.NFT_API_KEY}`
+  // );
+  // if (!response.ok) {
+  //   throw new Error("Network response was not ok");
+  // }
+  // const rawData = await response.json();
+
+  const rawData = nftArray;
 
   // Validate the fetched data against the schema using safeParse
   const data = rawData
