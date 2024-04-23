@@ -20,6 +20,20 @@ export const StatsSchema = z.object({
   floorCapNative: z.number().nullable(),
   updatedAt: z.string(),
   nativeCurrency: z.string(),
+  floorTemporalityUsd: z.object({
+    diff24h: z.number(),
+    diff7d: z.number(),
+    diff14d: z.number(),
+    diff30d: z.number(),
+    diff90d: z.number(),
+  }),
+  floorTemporalityNative: z.object({
+    diff24h: z.number(),
+    diff7d: z.number(),
+    diff14d: z.number(),
+    diff30d: z.number(),
+    diff90d: z.number(),
+  }),
   floorInfo: z
     .object({
       currentFloorNative: z.number().nullable(),

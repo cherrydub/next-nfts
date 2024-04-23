@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Project } from "@/lib/types";
 import Link from "next/link";
 import { ProjectSchema } from "@/lib/validations";
@@ -33,12 +33,7 @@ export default async function CollectionsPage() {
 
   return (
     <div className="container mx-auto font-mono">
-      <Suspense
-        key={crypto.randomUUID()}
-        fallback={<div>Loading dudeeeee...</div>}
-      >
-        <DataTable columns={Columns} data={data} />
-      </Suspense>
+      <DataTable columns={Columns} data={data} />
     </div>
   );
 }

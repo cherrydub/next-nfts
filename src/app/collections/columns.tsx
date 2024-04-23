@@ -6,11 +6,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
 
 import { z } from "zod";
 
 const currency = "Native";
+const timeRange = "7d";
 
 type Projects = z.infer<typeof ProjectSchema>;
 
@@ -65,7 +65,7 @@ export const Columns: ColumnDef<Projects>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          {currency ? "Floor Price ETH" : "Floor Price USD"}
+          {currency === "Native" ? "Floor Price ETH" : "Floor Price USD"}
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -76,6 +76,29 @@ export const Columns: ColumnDef<Projects>[] = [
           ? row.original.stats.floorInfo?.currentFloorNative
           : row.original.stats.floorInfo?.currentFloorUsd}
         {currency ? " ETH" : " USD"}
+      </span>
+    ),
+  },
+  {
+    accessorKey: `stats.floorTemporality${currency}.diff${timeRange}`,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          {`${timeRange} % change`} ETH
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <span>
+        {/* {currency
+          ? row.original.stats.floorInfo?.currentFloorNative
+          : row.original.stats.floorInfo?.currentFloorUsd}
+        {currency ? " ETH" : " USD"} */}
+        {row.original.stats.floorTemporalityNative?.diff7d}
       </span>
     ),
   },
