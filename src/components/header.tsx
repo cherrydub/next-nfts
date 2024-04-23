@@ -1,6 +1,7 @@
 import React from "react";
 import { ModeToggle } from "./mode-toggle";
 import Link from "next/link";
+import ContextOptions from "./context-options";
 
 const routes = [
   {
@@ -42,6 +43,7 @@ export default function Header() {
           ))}
         </ul>
       </nav>
+      <ContextOptions />
       <div className="">
         <ModeToggle />
       </div>

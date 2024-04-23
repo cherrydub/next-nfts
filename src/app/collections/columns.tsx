@@ -1,12 +1,16 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { useOptionsContext } from "@/contexts/options-context-provider";
 import { ProjectSchema } from "@/lib/validations";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { z } from "zod";
+
+const currency = "Native";
 
 type Projects = z.infer<typeof ProjectSchema>;
 
@@ -27,6 +31,7 @@ export const Columns: ColumnDef<Projects>[] = [
     cell: ({ row }) => (
       <div className="flex items-center justify-around">
         {String(row.original.ranking).padStart(3, "0")}
+        <Star className="text-sm" />
         <Image
           width={40}
           height={40}
@@ -53,17 +58,25 @@ export const Columns: ColumnDef<Projects>[] = [
     ),
   },
   {
-    accessorKey: "stats.floorInfo.currentFloorNative",
+    accessorKey: `stats.floorInfo.currentFloor${currency}`,
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Floor Price
+          {currency ? "Floor Price ETH" : "Floor Price USD"}
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
+    cell: ({ row }) => (
+      <span>
+        {currency
+          ? row.original.stats.floorInfo?.currentFloorNative
+          : row.original.stats.floorInfo?.currentFloorUsd}
+        {currency ? " ETH" : " USD"}
+      </span>
+    ),
   },
 ];

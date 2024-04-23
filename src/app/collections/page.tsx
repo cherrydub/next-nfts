@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Project } from "@/lib/types";
 import Link from "next/link";
 import { ProjectSchema } from "@/lib/validations";
@@ -6,8 +6,6 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import { DataTable } from "./data-table";
 import { Columns } from "./columns";
-
-const currency = true;
 
 export default async function CollectionsPage() {
   const response = await fetch(
@@ -35,7 +33,12 @@ export default async function CollectionsPage() {
 
   return (
     <div className="container mx-auto font-mono">
-      <DataTable columns={Columns} data={data} />
+      <Suspense
+        key={crypto.randomUUID()}
+        fallback={<div>Loading dudeeeee...</div>}
+      >
+        <DataTable columns={Columns} data={data} />
+      </Suspense>
     </div>
   );
 }

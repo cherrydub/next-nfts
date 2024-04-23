@@ -66,6 +66,10 @@
   }
 }
 
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
 @layer base {
   * {
     @apply border-border;

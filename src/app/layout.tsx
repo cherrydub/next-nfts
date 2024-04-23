@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
+import OptionsContextProvider from "@/contexts/options-context-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,10 +26,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="fixed top-0 left-0 w-full">
-            <Header />
-          </div>
-          <div className="mt-24 px-4">{children}</div>
+          <OptionsContextProvider>
+            <div className="fixed top-0 left-0 w-full">
+              <Header />
+            </div>
+            <div className="mt-24 px-4">{children}</div>
+          </OptionsContextProvider>
         </ThemeProvider>
       </body>
     </html>
