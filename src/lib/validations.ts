@@ -2,10 +2,10 @@ import { z } from "zod";
 
 export const TokenInfoSchema = z
   .object({
-    blockchain: z.string(),
-    tokenId: z.string(),
-    contract: z.string(),
-    source: z.string(),
+    blockchain: z.string().nullable(), // Make it nullable
+    tokenId: z.string().nullable(), // Make it nullable
+    contract: z.string().nullable(), // Make it nullable
+    source: z.string().nullable(), // Make it nullable
   })
   .nullable();
 
@@ -21,18 +21,18 @@ export const StatsSchema = z.object({
   updatedAt: z.string(),
   nativeCurrency: z.string(),
   floorTemporalityUsd: z.object({
-    diff24h: z.number(),
-    diff7d: z.number(),
-    diff14d: z.number(),
-    diff30d: z.number(),
-    diff90d: z.number(),
+    diff24h: z.number().nullable(), // Make it nullable
+    diff7d: z.number().nullable(), // Make it nullable
+    diff14d: z.number().nullable(), // Make it nullable
+    diff30d: z.number().nullable(), // Make it nullable
+    diff90d: z.number().nullable(), // Make it nullable
   }),
   floorTemporalityNative: z.object({
-    diff24h: z.number(),
-    diff7d: z.number(),
-    diff14d: z.number(),
-    diff30d: z.number(),
-    diff90d: z.number(),
+    diff24h: z.number().nullable(), // Make it nullable
+    diff7d: z.number().nullable(), // Make it nullable
+    diff14d: z.number().nullable(), // Make it nullable
+    diff30d: z.number().nullable(), // Make it nullable
+    diff90d: z.number().nullable(), // Make it nullable
   }),
   floorInfo: z
     .object({
@@ -47,7 +47,6 @@ export const StatsSchema = z.object({
     .nullable(),
 });
 
-//details schema stuff
 export const MarketplaceSchema = z.object({
   name: z.string(),
   url: z.string(),
@@ -61,7 +60,7 @@ export const CollectionSchema = z.object({
 export const FloorInfoSchema = z.object({
   currentFloorNative: z.number().nullable(),
   currentFloorUsd: z.number().nullable(),
-  blockchain: z.string().optional(), // Make it optional
+  blockchain: z.string().optional(),
   tokenId: z.string().optional(),
 });
 
@@ -91,7 +90,6 @@ export const DetailsSchema = z.object({
   nativeCurrency: z.string(),
 });
 
-// schema for all collections, each object is a collection
 export const ProjectSchema = z.object({
   name: z.string(),
   slug: z.string(),
