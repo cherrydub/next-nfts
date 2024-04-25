@@ -28,15 +28,18 @@ export const Columns: ColumnDef<Projects>[] = [
       );
     },
     cell: ({ row }) => (
-      <div className="flex items-center justify-around">
-        {String(row.original.ranking).padStart(3, "0")}
-        <Star width={12} />
+      <div className="flex flex-row justify-around w-24">
+        <span className="flex flex-col items-center ">
+          <Star width={12} />
+          {String(row.original.ranking).padStart(3, "0")}
+        </span>
+
         <Image
-          width={40}
-          height={40}
+          width={50}
+          height={50}
           src={`https://nftpricefloor.com/_next/image?url=https%3A%2F%2Fs3.amazonaws.com%2Fcdn.nftpricefloor%2Fprojects%2Fv1%2F${row.original.slug}.png%3Fversion%3D6&w=256&q=75`} // Replace "URL_TO_YOUR_IMAGE" with the actual URL to your image directory
           alt={row.original.name} // Use the name as alt text for accessibility
-          className="w-10 h-10 rounded-md mr-2 border" // Adjust the size of the image as needed
+          className="object-cover w-[50px] h-[50px]  rounded-sm border-primary border-4 hover:scale-110 transition" // Adjust the size of the image as needed
         />
       </div>
     ),
@@ -122,7 +125,7 @@ export const Columns: ColumnDef<Projects>[] = [
       >
         {row.original.stats.floorTemporalityNative?.diff7d.toFixed(2) === "0.00"
           ? "-"
-          : row.original.stats.floorTemporalityNative?.diff7d.toFixed(2)}
+          : row.original.stats.floorTemporalityNative?.diff7d.toFixed(2) + "%"}
       </span>
     ),
   },

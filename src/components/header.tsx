@@ -1,6 +1,5 @@
 import React from "react";
 import { ModeToggle } from "./mode-toggle";
-import Link from "next/link";
 import ContextOptions from "./context-options";
 import { DropdownNavigation } from "./dropdown-navigation";
 
@@ -30,15 +29,16 @@ const userRoutes = [
 
 export default function Header() {
   return (
-    <div className="flex justify-between items-center border-b z-[999] relative backdrop-blur-[0.5rem] px-4 py-2 ">
-      <nav className=" ">
+    <div
+      className="flex justify-between items-center border-b  backdrop-blur-[0.5rem] px-4 py-2"
+      style={{ height: "60px", zIndex: "100000" }}
+    >
+      <nav className="flex-shrink-0">
         <DropdownNavigation />
       </nav>
-      <h1 className="font-mono">Next NFTs 👾</h1>
-      <div className="">
+      <h1 className="flex-shrink-0">Next NFTs 👾</h1>
+      <div className="flex">
         <ContextOptions />
-      </div>
-      <div className="">
         <ModeToggle />
       </div>
     </div>

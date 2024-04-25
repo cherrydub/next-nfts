@@ -1,13 +1,11 @@
 import React from "react";
 import { Project } from "@/lib/types";
-import Link from "next/link";
 import { ProjectSchema } from "@/lib/validations";
-import Image from "next/image";
-import { Star } from "lucide-react";
 import { DataTable } from "./data-table";
 import { Columns } from "./columns";
 import { nftArray } from "../../../public/data";
-import { useOptionsContext } from "@/contexts/options-context-provider";
+
+import { smallerNftArray } from "../../../public/smallerData";
 
 export default async function CollectionsPage() {
   // const response = await fetch(
@@ -18,11 +16,12 @@ export default async function CollectionsPage() {
   // }
   // const rawData = await response.json();
 
+  // const rawData = smallerNftArray;
   const rawData = nftArray;
 
   // Validate the fetched data against the schema using safeParse
   const data = rawData
-    .map((item: Project) => {
+    .map((item: unknown) => {
       const result = ProjectSchema.safeParse(item);
       if (result.success) {
         return result.data; // Valid data
@@ -36,8 +35,8 @@ export default async function CollectionsPage() {
     .filter((item: Project) => item.blockchain === "ethereum");
 
   return (
-    <div className="container mx-auto font-mono">
-      <DataTable columns={Columns} data={data} />
+    <div className="container mx-auto">
+      <DataTable asChild columns={Columns} data={data} />
     </div>
   );
 }

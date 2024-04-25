@@ -23,7 +23,7 @@ export default function CollectionTable({
 }: CollectionTableProps) {
   return (
     <div>
-      <Table className="min-w-[50vw]">
+      <Table className="w-full">
         <TableCaption></TableCaption>
         <TableHeader>
           <TableRow>

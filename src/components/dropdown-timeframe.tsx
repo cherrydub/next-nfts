@@ -23,8 +23,7 @@ export function DropdownTimeFrame() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          <span className="hidden md:inline mr-1">timerange:</span>
-          {timeFrame}{" "}
+          <span className="hidden sm:inline">{timeFrame}</span>
           <Image alt="logo" src="/svgs/clock.svg" width={20} height={20} />
         </Button>
       </DropdownMenuTrigger>

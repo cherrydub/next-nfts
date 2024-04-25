@@ -23,11 +23,10 @@ export function DropdownCurrency() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          <span className="hidden md:inline">currency:</span>
-
           {currency === "Native" ? (
             <span className="flex ml-1">
-              ETH{" "}
+              <span className="hidden md:inline">ETH</span>
+
               <Image
                 alt="logo"
                 src="/svgs/ethereum.svg"
@@ -37,7 +36,7 @@ export function DropdownCurrency() {
             </span>
           ) : (
             <span className="flex ml-1">
-              USD{" "}
+              <span className="hidden md:inline">USD</span>
               <Image alt="logo" src="/svgs/dollar.svg" width={20} height={20} />
             </span>
           )}

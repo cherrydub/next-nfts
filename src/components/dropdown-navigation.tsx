@@ -23,15 +23,8 @@ export function DropdownNavigation() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
-          <span className=" mr-1">
-            <Image
-              alt="logo"
-              src="/svgs/bars-solid.svg"
-              width={20}
-              height={20}
-            />
-          </span>
-          {navigation}{" "}
+          <Image alt="logo" src="/svgs/bars-solid.svg" width={20} height={20} />
+          {/* <span className="hidden md:inline">Navigation</span> */}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

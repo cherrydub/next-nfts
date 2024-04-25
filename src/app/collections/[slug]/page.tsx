@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { singleCollection } from "../../../../public/data";
 import CollectionTable from "@/components/collection-table";
+import CollectionComments from "@/components/collection-comments";
 
 export default async function CollectionsPageSlug({ params }: any) {
   const { slug } = params;
@@ -55,10 +56,13 @@ export default async function CollectionsPageSlug({ params }: any) {
         alt={validatedDetails.name} // Use the name as alt text for accessibility
         className=" rounded-md mr-2 border" // Adjust the size of the image as needed
       />
-      <CollectionTable
-        validatedStats={validatedStats}
-        validatedDetails={validatedDetails}
-      />
+      <div className="flex">
+        <CollectionTable
+          validatedStats={validatedStats}
+          validatedDetails={validatedDetails}
+        />
+        {/* <CollectionComments /> */}
+      </div>
     </div>
   );
 }
