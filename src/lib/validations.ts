@@ -2,10 +2,10 @@ import { z } from "zod";
 
 export const TokenInfoSchema = z
   .object({
-    blockchain: z.string().nullable(), // Make it nullable
-    tokenId: z.string().nullable(), // Make it nullable
-    contract: z.string().nullable(), // Make it nullable
-    source: z.string().nullable(), // Make it nullable
+    blockchain: z.string().nullable(),
+    tokenId: z.string().nullable(),
+    contract: z.string().nullable(),
+    source: z.string().nullable(),
   })
   .nullable();
 
@@ -21,18 +21,18 @@ export const StatsSchema = z.object({
   updatedAt: z.string(),
   nativeCurrency: z.string(),
   floorTemporalityUsd: z.object({
-    diff24h: z.number().nullable(), // Make it nullable
-    diff7d: z.number().nullable(), // Make it nullable
-    diff14d: z.number().nullable(), // Make it nullable
-    diff30d: z.number().nullable(), // Make it nullable
-    diff90d: z.number().nullable(), // Make it nullable
+    diff24h: z.number().nullable(),
+    diff7d: z.number().nullable(),
+    diff14d: z.number().nullable(),
+    diff30d: z.number().nullable(),
+    diff90d: z.number().nullable(),
   }),
   floorTemporalityNative: z.object({
-    diff24h: z.number().nullable(), // Make it nullable
-    diff7d: z.number().nullable(), // Make it nullable
-    diff14d: z.number().nullable(), // Make it nullable
-    diff30d: z.number().nullable(), // Make it nullable
-    diff90d: z.number().nullable(), // Make it nullable
+    diff24h: z.number().nullable(),
+    diff7d: z.number().nullable(),
+    diff14d: z.number().nullable(),
+    diff30d: z.number().nullable(),
+    diff90d: z.number().nullable(),
   }),
   floorInfo: z
     .object({
@@ -45,6 +45,20 @@ export const StatsSchema = z.object({
       nativeCurrency: z.string(),
     })
     .nullable(),
+  salesTemporalityUsd: z.object({
+    lowest: z.record(z.number().nullable()),
+    highest: z.record(z.number().nullable()),
+    average: z.record(z.number().nullable()),
+    volume: z.record(z.number().nullable()),
+    count: z.record(z.number().nullable()),
+  }),
+  salesTemporalityNative: z.object({
+    lowest: z.record(z.number().nullable()),
+    highest: z.record(z.number().nullable()),
+    average: z.record(z.number().nullable()),
+    volume: z.record(z.number().nullable()),
+    count: z.record(z.number().nullable()),
+  }),
 });
 
 export const MarketplaceSchema = z.object({
@@ -75,7 +89,7 @@ export const DetailsSchema = z.object({
   totalSupply: z.number(),
   socialMedia: z.array(MarketplaceSchema).nullable(),
   contract: z.string(),
-  textEn: z.string().nullable(),
+  textEn: z.string(),
   textEs: z.string().nullable(),
   floorPriceNative: z.number(),
   floorPriceUsd: z.number(),
@@ -97,6 +111,16 @@ export const ProjectSchema = z.object({
   stats: StatsSchema,
   types: z.array(z.string()),
   blockchain: z.string(),
-  bestPriceUrl: z.string(),
+  nativeCurrency: z.string(),
+  bestPriceUrl: z.string().nullable(),
   updatedAt: z.string(),
+  reservoirCollectionId: z.string().nullable(),
+  creator: z
+    .object({
+      name: z.string(),
+      slug: z.string(),
+    })
+    .nullable(),
+  parentCollection: CollectionSchema.nullable(),
+  subCollection: CollectionSchema.nullable(),
 });
